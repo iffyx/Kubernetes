@@ -8,7 +8,18 @@ spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 100Mi
+    storage: 10Mi
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
   hostPath:
     path: /home/iwona/Tmp/k8s-volume1
-
+    type: DirectoryOrCreate
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - minikube
